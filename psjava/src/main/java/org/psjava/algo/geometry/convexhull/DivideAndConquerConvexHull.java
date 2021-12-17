@@ -38,7 +38,7 @@ public class DivideAndConquerConvexHull implements Contract {
 		return new ConvexHullAlgorithm() {
 			
 			@Pure
-			public boolean points_must_not_be_empty(Set<Point2D<T>> src, MultipliableNumberSystem<T> ns) {
+			public <T> boolean  points_must_not_be_empty(Set<Point2D<T>> src, MultipliableNumberSystem<T> ns) {
 				return !src.isEmpty();
 			}
 

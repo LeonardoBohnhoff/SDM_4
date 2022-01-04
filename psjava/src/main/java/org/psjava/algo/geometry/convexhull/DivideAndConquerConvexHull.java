@@ -25,18 +25,27 @@ import org.psjava.util.Assertion;
 import org.psjava.util.ReversedComparator;
 import org.psjava.util.SeriesComparator;
 
+import ch.usi.si.codelounge.jsicko.Contract;
+
 import org.psjava.formula.MaxIndexInArray;
 
 /**
  * O(nlogn)
  */
-public class DivideAndConquerConvexHull {
+public class DivideAndConquerConvexHull implements Contract {
 
     public static ConvexHullAlgorithm getInstance(final SortingAlgorithm sortingAlgorithm) {
-        return new ConvexHullAlgorithm() {
+		return new ConvexHullAlgorithm() {
+			
+			@Pure
+			public <T> boolean  points_must_not_be_empty(Set<Point2D<T>> src, MultipliableNumberSystem<T> ns) {
+				return !src.isEmpty();
+			}
+
+			@Requires("points_must_not_be_empty")
             @Override
             public <T> Polygon2D<T> calc(Set<Point2D<T>> src, MultipliableNumberSystem<T> ns) {
-                Assertion.ensure(!src.isEmpty(), "points must not be empty");
+                // Assertion.ensure(!src.isEmpty(), "points must not be empty");
                 Comparator<Point2D<T>> xcomp = PointByXComparator.create(ns);
                 Comparator<Point2D<T>> ycomp = PointByYComparator.create(ns);
                 Comparator<Point2D<T>> xycomp = SeriesComparator.create(xcomp, ycomp);
